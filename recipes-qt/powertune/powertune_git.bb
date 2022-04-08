@@ -43,7 +43,6 @@ EOF
         install -dm 0755 ${D}${sysconfdir}/${d}; \
     done
     cat <<EOF>${D}${sysconfdir}/init.d/powertune
-#!/bin/sh
 export LC_ALL=en_US.utf8
 export QT_QPA_EGLFS_PHYSICAL_WIDTH=155
 export QT_QPA_EGLFS_PHYSICAL_HEIGHT=86
@@ -52,17 +51,24 @@ export QT_QPA_EGLFS_ALWAYS_SET_MODE=1
 export QT_QPA_EGLFS_KMS_ATOMIC=1
 export QT_QPA_PLATFORM=eglfs
 
-/home/pi/powertune-update.sh ||:
-
-(cd /opt/PowertuneQMLGui; ./PowertuneQMLGui) &
+#Check if there are compiled binaries available
+if [ -f /home/pi/build/PowertuneQMLGui ];then
+#copy binaries and delete build folder
+cp -R /home/pi/build/PowertuneQMLGui /opt/PowerTune
+rm -r /home/pi/build
+fi
+#Start PowerTune
+(cd /opt/PowerTune; ./PowertuneQMLGui) &
 
 # Allow QT5 have more IOPS to load all lib/plugins while starting in background
-sleep 1.5
-
-/home/pi/startdaemon.sh
+#sleep 1.5
+#start the communication daemon
+/home/pi/startdaemon.sh &
 
 # Wait a bit before processing next init script
-sleep 1
+#sleep 1
+
+
 EOF
     chmod 0755 ${D}${sysconfdir}/init.d/powertune
     ln -s ../init.d/powertune ${D}${sysconfdir}/rc3.d/S010powertune
