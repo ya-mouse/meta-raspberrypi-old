@@ -50,6 +50,7 @@ local_conf_header:
     EXTRA_IMAGE_FEATURES_append = " ssh-server-openssh"
   image-packages: |
     IMAGE_FEATURES_remove = " splash"
+    IMAGE_INSTALL_append = " userland"
     IMAGE_INSTALL_append = " rpio rpi-gpio strace nano openssh-ssh git"
     IMAGE_INSTALL_append = " rsync iw sudo htop ntp wpa-supplicant"
     IMAGE_INSTALL_append = " locale-base-de-de glibc-binary-localedata-de-de glibc-charmap-utf-8"
