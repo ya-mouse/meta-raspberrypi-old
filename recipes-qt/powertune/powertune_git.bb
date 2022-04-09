@@ -13,7 +13,7 @@ RDEPENDS_${PN} += " sudo qtvirtualkeyboard qtsvg-plugins qtxmlpatterns qtdeclara
 inherit qmake5
 inherit useradd
 
-SRCREV = "f2a6d8d9ecc7c10cb407916240001307595dd700"
+SRCREV = "${AUTOREV}"
 SRC_URI = "git://github.com/BastianGschrey/PowerTune;protocol=https"
 
 S = "${WORKDIR}/git"
@@ -25,9 +25,7 @@ USERADD_PARAM_${PN} = "-d /home/pi -s /bin/bash -P 'powertune' pi"
 do_install_append() {
     install -m 0755 -pD ${S}/daemons/EMUCANd ${D}/home/pi/daemons/EMUCANd
 
-    for d in GPSTracks Gauges KTracks Logo Sounds exampleDash fonts graphics; do \
-        cp -rd ${S}/$d/ ${D}/opt/PowertuneQMLGui/
-    done
+
 
     # Add sudoers config
     install -dm 0750 ${D}${sysconfdir}/sudoers.d
@@ -37,6 +35,7 @@ EOF
 
     mv ${D}/opt/PowertuneQMLGui/bin/PowertuneQMLGui \
        ${D}/opt/PowertuneQMLGui/PowertuneQMLGui
+       
 
     # Install InitV scripts
     for d in init.d rc3.d rc5.d; do \
