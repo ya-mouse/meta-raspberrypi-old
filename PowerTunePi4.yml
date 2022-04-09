@@ -62,8 +62,8 @@ local_conf_header:
     DISTRO_FEATURES_append = " opengl"
     DISTRO_FEATURES_remove = "bluetooth wayland vulkan x11"
   locale: |
-    IMAGE_LINGUAS = "de-de en-us"
-#    GLIBC_GENERATE_LOCALES = "de_DE.UTF-8 en_US.UTF-8 en_GB.UTF-8"
+    IMAGE_LINGUAS = "ja-jp de-de en-us"
+    GLIBC_GENERATE_LOCALES = "ja_JP.UTF-8 de_DE.UTF-8 en_US.UTF-8 en_GB.UTF-8"
   config-options: |
     RPI_KERNEL_DEVICETREE_OVERLAYS_append = " overlays/rpi-backlight.dtbo" 
     GPU_MEM = "1024"
