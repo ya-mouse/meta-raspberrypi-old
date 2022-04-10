@@ -23,9 +23,8 @@ USERADD_PACKAGES = "${PN}"
 USERADD_PARAM_${PN} = "-d /home/pi -s /bin/bash -P 'powertune' pi"
 
 do_install_append() {
+
     install -m 0755 -pD ${S}/daemons/EMUCANd ${D}/home/pi/daemons/EMUCANd
-
-
 
     # Add sudoers config
     install -dm 0750 ${D}${sysconfdir}/sudoers.d
@@ -33,9 +32,6 @@ do_install_append() {
 pi ALL=(ALL) ALL
 EOF
 
-    mv ${D}/opt/PowertuneQMLGui/bin/PowertuneQMLGui \
-       ${D}/opt/PowertuneQMLGui/PowertuneQMLGui
-       
 
     # Install InitV scripts
     for d in init.d rc3.d rc5.d; do \
@@ -74,4 +70,4 @@ EOF
     ln -s ../init.d/powertune ${D}${sysconfdir}/rc5.d/S010powertune
 }
 
-FILES_${PN} += "/opt/PowertuneQMLGui /home/pi/daemons"
+FILES_${PN} += "/opt/PowertuneQMLGui /opt/PowerTune /home/pi/daemons"
