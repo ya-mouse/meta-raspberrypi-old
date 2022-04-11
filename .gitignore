@@ -5,3 +5,7 @@ build*
 *.rej
 *.log
 docs/_build
+
+meta-qt5/
+
+meta-openembedded/
